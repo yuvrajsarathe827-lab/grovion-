@@ -1,0 +1,554 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050914">
+<title>GROVION | Intelligence</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --blue: #36cfff;
+  --cyan: #8cecff;
+  --bg: #050914;
+  --panel: rgba(16,29,49,.72);
+  --muted: #8295ad;
+}
+
+* { box-sizing:border-box; margin:0; padding:0; }
+
+body {
+  background:
+    radial-gradient(ellipse at 50% 30%, #102b48 0%, transparent 48%),
+    radial-gradient(ellipse at 100% 100%, #101d37 0%, transparent 45%),
+    var(--bg);
+  color:#eef8ff;
+  font-family:Inter,Arial,sans-serif;
+  min-height:100vh;
+}
+
+.app {
+  width:100%;
+  max-width:520px;
+  margin:auto;
+  padding:24px 20px 35px;
+}
+
+header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 0 24px;
+  border-bottom:1px solid #ffffff12;
+}
+
+.brand {
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:5px;
+  color:var(--cyan);
+}
+
+.brand span { color:white; }
+
+.online {
+  font-size:10px;
+  color:#66e9bc;
+  letter-spacing:1px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.dot {
+  width:7px;
+  height:7px;
+  background:#4ee6a5;
+  border-radius:50%;
+  box-shadow:0 0 12px #4ee6a5;
+}
+
+.heading {
+  text-align:center;
+  margin-top:32px;
+}
+
+.eyebrow {
+  color:var(--blue);
+  font-size:10px;
+  letter-spacing:4px;
+  font-weight:700;
+}
+
+.heading h1 {
+  font-size:29px;
+  margin-top:12px;
+  letter-spacing:-1px;
+}
+
+.heading p {
+  font-size:12px;
+  color:var(--muted);
+  margin-top:9px;
+}
+
+.clock {
+  text-align:center;
+  margin-top:30px;
+}
+
+#time {
+  font-size:36px;
+  font-weight:600;
+  letter-spacing:2px;
+  font-variant-numeric:tabular-nums;
+}
+
+#date {
+  color:var(--muted);
+  font-size:12px;
+  margin-top:8px;
+}
+
+/* REACTOR */
+
+.reactor-area {
+  height:290px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+  margin:10px 0;
+}
+
+.reactor {
+  width:220px;
+  height:220px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.ring {
+  position:absolute;
+  border:1px solid #32bfff70;
+  border-radius:50%;
+}
+
+.ring.one {
+  inset:0;
+  border-right-color:transparent;
+  animation:rotate 12s linear infinite;
+}
+
+.ring.two {
+  inset:15px;
+  border-left-color:transparent;
+  border-bottom-color:#9befff;
+  animation:rotate 8s linear infinite reverse;
+}
+
+.ring.three {
+  inset:30px;
+  border-style:dashed;
+  border-color:#38bfff65;
+  animation:rotate 20s linear infinite;
+}
+
+.core {
+  width:130px;
+  height:130px;
+  border-radius:50%;
+  background:radial-gradient(circle,#1a719b 0%,#0c2946 45%,#071323 100%);
+  border:1px solid #5edcff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:
+    0 0 25px #21bfff70,
+    0 0 75px #0789d455,
+    inset 0 0 25px #28caff45;
+  animation:breathe 3s ease-in-out infinite;
+}
+
+.core span {
+  font-size:49px;
+  font-weight:800;
+  color:#c3f6ff;
+  text-shadow:0 0 25px #41d9ff;
+}
+
+@keyframes rotate {
+  to { transform:rotate(360deg); }
+}
+
+@keyframes breathe {
+  50% {
+    transform:scale(1.045);
+    box-shadow:0 0 45px #21bfff99,0 0 95px #0789d466;
+  }
+}
+
+.listening .core {
+  animation:breathe .7s infinite;
+  box-shadow:0 0 70px #36dfff;
+}
+
+.system-status {
+  text-align:center;
+  color:var(--cyan);
+  font-size:11px;
+  letter-spacing:3px;
+  font-weight:700;
+  margin-bottom:20px;
+}
+
+/* PANELS */
+
+.panel {
+  background:var(--panel);
+  border:1px solid #ffffff12;
+  border-radius:18px;
+  padding:17px;
+  backdrop-filter:blur(16px);
+  margin-top:14px;
+}
+
+.panel-title {
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:2px;
+  margin-bottom:14px;
+}
+
+.response {
+  font-size:14px;
+  line-height:1.7;
+  color:#d6eafa;
+  min-height:45px;
+}
+
+.commands {
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+
+.chip {
+  background:#122c46;
+  border:1px solid #2c7094;
+  border-radius:30px;
+  padding:10px 13px;
+  color:#a9eaff;
+  font-size:11px;
+  cursor:pointer;
+}
+
+.chip:active { background:#205477; }
+
+.chat {
+  display:flex;
+  gap:9px;
+}
+
+.chat input {
+  min-width:0;
+  flex:1;
+  padding:14px;
+  border-radius:12px;
+  border:1px solid #28445e;
+  background:#081626;
+  color:white;
+  outline:none;
+  font-size:13px;
+}
+
+.chat button, .mic {
+  border:0;
+  cursor:pointer;
+  color:#041321;
+  background:linear-gradient(135deg,#72e5ff,#219fdf);
+  font-weight:700;
+}
+
+.chat button {
+  padding:0 17px;
+  border-radius:12px;
+}
+
+.mic-area {
+  display:flex;
+  justify-content:center;
+  margin:12px 0 25px;
+}
+
+.mic {
+  width:68px;
+  height:68px;
+  border-radius:50%;
+  font-size:24px;
+  box-shadow:0 0 30px #24baff65;
+}
+
+.mic:active { transform:scale(.94); }
+
+.info-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:11px;
+}
+
+.info {
+  background:#102039;
+  padding:15px;
+  border:1px solid #ffffff10;
+  border-radius:14px;
+}
+
+.info small {
+  color:var(--muted);
+  font-size:9px;
+  letter-spacing:1px;
+}
+
+.info strong {
+  display:block;
+  margin-top:9px;
+  font-size:13px;
+  color:#a8eaff;
+}
+
+footer {
+  text-align:center;
+  margin-top:28px;
+  color:#526b85;
+  font-size:9px;
+  letter-spacing:3px;
+}
+
+button { font-family:inherit; }
+
+@media(max-width:360px) {
+  .app { padding:18px 13px; }
+  .heading h1 { font-size:25px; }
+  .reactor { transform:scale(.9); }
+}
+</style>
+</head>
+
+<body>
+<main class="app">
+
+<header>
+  <div class="brand">GROVION<span>.</span></div>
+  <div class="online">
+    <span class="dot"></span> SYSTEM ONLINE
+  </div>
+</header>
+
+<section class="heading">
+  <div class="eyebrow">PERSONAL INTELLIGENCE SYSTEM</div>
+  <h1>Good to see you, Creator.</h1>
+  <p>Your personal digital assistant is ready.</p>
+</section>
+
+<section class="clock">
+  <div id="time">00:00:00</div>
+  <div id="date">Loading...</div>
+</section>
+
+<section class="reactor-area" id="reactorArea">
+  <div class="reactor">
+    <div class="ring one"></div>
+    <div class="ring two"></div>
+    <div class="ring three"></div>
+    <div class="core"><span>G</span></div>
+  </div>
+</section>
+
+<div class="system-status" id="status">
+  ◆ ALL SYSTEMS READY
+</div>
+
+<div class="mic-area">
+  <button class="mic" onclick="listen()" aria-label="Start voice recognition">
+    ◉
+  </button>
+</div>
+
+<section class="panel">
+  <div class="panel-title">GROVION RESPONSE</div>
+  <div class="response" id="response">
+    Welcome, Creator. GROVION is online and ready for your commands.
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-title">QUICK COMMANDS</div>
+  <div class="commands">
+    <button class="chip" onclick="run('Hello')">Hello</button>
+    <button class="chip" onclick="run('What time is it?')">Time</button>
+    <button class="chip" onclick="run('What is the date?')">Date</button>
+    <button class="chip" onclick="run('Who are you?')">Identity</button>
+    <button class="chip" onclick="run('Help')">Help</button>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-title">COMMAND INPUT</div>
+  <div class="chat">
+    <input id="command" placeholder="Enter a command..."
+      autocomplete="off">
+    <button onclick="send()">SEND</button>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-title">SYSTEM OVERVIEW</div>
+  <div class="info-grid">
+    <div class="info">
+      <small>AI CORE</small>
+      <strong>INITIALIZED</strong>
+    </div>
+    <div class="info">
+      <small>VOICE ENGINE</small>
+      <strong id="voiceState">STANDBY</strong>
+    </div>
+    <div class="info">
+      <small>INTERFACE</small>
+      <strong>ACTIVE</strong>
+    </div>
+    <div class="info">
+      <small>VERSION</small>
+      <strong>2.0 BETA</strong>
+    </div>
+  </div>
+</section>
+
+<footer>GROVION INTELLIGENCE · BUILT FOR THE FUTURE</footer>
+
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+
+function clock() {
+  const now = new Date();
+  $("time").textContent = now.toLocaleTimeString("en-IN");
+  $("date").textContent = now.toLocaleDateString("en-IN", {
+    weekday:"long", day:"numeric",
+    month:"long", year:"numeric"
+  });
+}
+
+clock();
+setInterval(clock,1000);
+
+function reply(message, speak=true) {
+  $("response").textContent = message;
+
+  if (speak && "speechSynthesis" in window) {
+    speechSynthesis.cancel();
+    const voice = new SpeechSynthesisUtterance(message);
+    voice.lang = "en-IN";
+    voice.rate = 0.94;
+    voice.pitch = 0.9;
+    speechSynthesis.speak(voice);
+  }
+}
+
+function run(command) {
+  const c = command.toLowerCase().trim();
+
+  $("status").textContent = "◆ PROCESSING COMMAND";
+
+  let answer;
+
+  if (c.includes("hello") || c.includes("hi")) {
+    answer = "Hello, Creator. GROVION is online and ready.";
+  } else if (c.includes("time")) {
+    answer = "The current time is " + new Date().toLocaleTimeString();
+  } else if (c.includes("date") || c.includes("day")) {
+    answer = "Today is " + new Date().toDateString();
+  } else if (c.includes("your name") || c.includes("who are you") || c.includes("identity")) {
+    answer = "I am GROVION, your personal digital assistant.";
+  } else if (c.includes("how are you")) {
+    answer = "All my available systems are running smoothly, Creator.";
+  } else if (c.includes("help")) {
+    answer = "You can ask me for the time, date, my identity, or say hello.";
+  } else if (c.includes("thank")) {
+    answer = "Always happy to help, Creator.";
+  } else {
+    answer = "I received your command: " + command +
+      ". I don't have an answer for that yet.";
+  }
+
+  reply(answer);
+  $("status").textContent = "◆ ALL SYSTEMS READY";
+}
+
+function send() {
+  const input = $("command");
+  const value = input.value.trim();
+  if (!value) return;
+  input.value = "";
+  run(value);
+}
+
+$("command").addEventListener("keydown", e => {
+  if (e.key === "Enter") send();
+});
+
+function listen() {
+  const Recognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+  if (!Recognition) {
+    $("status").textContent = "◆ VOICE UNAVAILABLE";
+    reply("Voice recognition is unavailable in this browser. Please use the command input.");
+    return;
+  }
+
+  const recognition = new Recognition();
+  recognition.lang = "en-IN";
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  $("status").textContent = "◆ LISTENING";
+  $("voiceState").textContent = "LISTENING";
+  $("reactorArea").classList.add("listening");
+
+  recognition.onresult = event => {
+    const heard = event.results[0][0].transcript;
+    $("command").value = heard;
+    run(heard);
+  };
+
+  recognition.onerror = event => {
+    $("status").textContent = "◆ VOICE ERROR";
+    reply("Voice recognition error: " + event.error, false);
+  };
+
+  recognition.onend = () => {
+    $("reactorArea").classList.remove("listening");
+    $("voiceState").textContent = "STANDBY";
+    if ($("status").textContent === "◆ LISTENING") {
+      $("status").textContent = "◆ ALL SYSTEMS READY";
+    }
+  };
+
+  try {
+    recognition.start();
+  } catch (error) {
+    $("status").textContent = "◆ TRY AGAIN";
+  }
+}
+</script>
+</body>
+</html>
+
